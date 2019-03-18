@@ -1,0 +1,14 @@
+[
+    {
+        "name" : "potato",
+        "weight": "200"
+    },
+    {
+        "name" : "onion",
+        "weight": "2000"
+    },
+    {
+        "name" : "carrots",
+        "weight": "500"
+    }
+]
