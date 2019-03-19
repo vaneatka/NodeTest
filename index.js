@@ -1,29 +1,23 @@
 const fs = require('fs');
-
+let dataToShow;
 fs.watch('./data/', function(event, filename){
+  
     if (fs.existsSync(`./data/${filename}`)){
-   fileParse(fileRead(event, filename) );
-    } else {
-        console.log('file not exist',event,  filename);        
+        const file = fs.createReadStream(`./data/${filename}`, {encoding : 'utf8'});
+        file.on("data", function(data) {
+          dataToShow = JSON.parse(data.toString());
+          if (dataToShow != undefined){
+               showData(dataToShow);
+            }  
+          });              
     }
 });
 
+const showData = (data) => {
+      const key = Object.keys(data[0])[0];
 
-const fileRead = (event, filename) => {
-    let file = fs.readFileSync(`./data/${filename}`, 'utf8');
-    console.log(typeof file);    
-    console.log('succes', filename);
-    console.log('----------');
-    return file;       
+      data.forEach(element => {
+         console.log(element[key]);
+          
+      });
 }
-
-const fileParse = (name) => {
-    if (typeof name == 'string'){
-        console.log(name);        
-        const parsed = JSON.parse(name);
-        console.log(parsed); 
-    }
-    else console.log('not a string');
-           
-}
-
