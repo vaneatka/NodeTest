@@ -7,17 +7,20 @@ fs.watch('./data/', function(event, filename){
         file.on("data", function(data) {
           dataToShow = JSON.parse(data.toString());
           if (dataToShow != undefined){
-               showData(dataToShow);
+               showData(dataToShow, event, filename);
             }  
           });              
     }
 });
 
-const showData = (data) => {
+const showData = (data, event, filename) => {
       const key = Object.keys(data[0])[0];
-
+        console.log(`Someone made a ${event}, on ${filename}`,);
+        console.log(`The ${key} positions are:`);        
+        
       data.forEach(element => {
-         console.log(element[key]);
-          
+         console.log(element[key]);          
       });
+
+      console.log('++++++++++++++++++++++');      
 }
