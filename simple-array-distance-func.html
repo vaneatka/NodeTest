@@ -1,0 +1,71 @@
+<script>
+    $road = ['r', '_', '_', '_', '_', '_', '_', '_', '_', 'd']
+    $consume = 10; // energy units per distance unit
+
+    function search_for($what) {
+        for ($x = 0; $x < 10; $x++) {
+            if ($road[$x] == $what) {
+                return $x;
+            }
+        }
+    }
+    function where_is_robot() {
+       return search_for('r');
+    }
+    function where_is_diamond() {
+       return search_for('d')
+    }
+    function distance($x_from, $x_to){
+        $distance = 0;
+        
+        if($x_from< $x_to){
+            for($x=$x_from+1; $x<$x_to; $x++ ){
+                $distance++
+            }           
+        }
+        if($x_from> $x_to){
+            for($x=$x_from-1; $x > $x_to; $x--){
+                $distance++;
+                console.log($x);                
+            }            
+        }
+        return $distance;
+    }
+
+    function energy($x_from, $x_to){
+        $energy = 0;        
+        if($x_from< $x_to){
+            for($x=$x_from+1; $x<$x_to; $x++ ){
+                $energy += consumption($x);
+            }           
+        }
+        if($x_from> $x_to){
+            for($x=$x_from; $x > $x_to; $x--){
+                $energy += consumption($x);                                
+            }            
+        }
+        return $energy;
+    }
+    
+    function consumption($index){
+        if($road[$index]=='_'){
+            return $consume;
+        }
+        if($road[$index]=='.'){
+            return $consume*1.5;
+        }
+    }
+
+    $robot = where_is_robot();
+    $diamond = where_is_diamond();
+    $energy = energy($robot, $diamond)
+    document.write($robot);
+    document.write('<br>');
+    document.write($diamond);
+    document.write('<br>');   
+    document.write(distance($robot, $diamond));
+    document.write('<br>');      
+    document.write($energy);
+    
+    
+</script>
